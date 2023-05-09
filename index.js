@@ -1,4 +1,5 @@
 const express = require('express');
+const { faker } = require('@faker-js/faker');
 const app = express();
 const port = 3000;
 
@@ -17,12 +18,27 @@ app.get('/home', (req, res) => {
 
 // vamos hacer una API sencilla
 app.get('/products', (req, res) => {
+
+  const products = []
+
+  for (let index =0 ; index < 100; index++){
+    products.push({
+      name: faker.commerce.productName(),
+      price: faker.commerce.price(),
+      image: faker.image.imageUrl()
+    })
+  }
+
+  res.json(products);
+
+  /*
   res.json([
     { name: 'producto uno', price: 1500 },
     { name: 'producto dos', price: 1200 },
     { name: 'producto tres', price: 1360 },
     { name: 'producto cuatro', price: 1560 },
   ]);
+  */
 });
 
 app.get('/products/:id', (req, res) => {
